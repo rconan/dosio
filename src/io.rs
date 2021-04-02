@@ -2,7 +2,8 @@
 //!
 //! Provides the definitions for all the inputs and outputs used by DOS
 
-use core::fmt::Debug;
+
+use std::fmt;
 use serde::{Deserialize, Serialize};
 use std::ops::{AddAssign, Index, IndexMut, SubAssign};
 
@@ -10,6 +11,12 @@ use std::ops::{AddAssign, Index, IndexMut, SubAssign};
 pub enum IOError {
     Missing(String),
 }
+impl fmt::Display for IOError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "DOSIO: {:?}", self)
+    }
+}
+impl std::error::Error for IOError {}
 
 macro_rules! build_io {
     ($($variant:ident),+) => {
@@ -69,7 +76,7 @@ macro_rules! build_io {
                 }
             }
         }
-        impl<T: Debug> From<IO<T>> for Result<T,IOError> {
+        impl<T: fmt::Debug> From<IO<T>> for Result<T,IOError> {
             /// Converts a `IO<T>` into an `Option<T>`
             fn from(io: IO<T>) -> Self {
                 match io {
