@@ -3,20 +3,23 @@
 //! Provides the definitions for all the inputs and outputs used by DOS
 
 
+use core::fmt::Debug;
 use std::fmt;
 use serde::{Deserialize, Serialize};
 use std::ops::{AddAssign, Index, IndexMut, SubAssign};
 
-#[derive(Clone, Debug)]
-pub enum IOError {
-    Missing(String),
+#[derive(Debug)]
+pub enum IOError<T> {
+    Missing(IO<T>),
 }
-impl fmt::Display for IOError {
+impl<T: Debug> fmt::Display for IOError<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "DOSIO: {:?}", self)
+        match self {
+            Self::Missing(v) => write!(f,"{:?} is missing",v),
+        }
     }
 }
-impl std::error::Error for IOError {}
+impl<T: Debug> std::error::Error for IOError<T> {}
 
 macro_rules! build_io {
     ($($variant:ident),+) => {
@@ -76,14 +79,14 @@ macro_rules! build_io {
                 }
             }
         }
-        impl<T: fmt::Debug> From<IO<T>> for Result<T,IOError> {
+        impl<T: Debug> From<IO<T>> for Result<T,IOError<T>> {
             /// Converts a `IO<T>` into an `Option<T>`
             fn from(io: IO<T>) -> Self {
                 match io {
                     $(IO::$variant{ data: values} =>
                       values.ok_or_else(||
                                         //format!("{:?} data missing",IO::<T>::$variant{data: None}).into()
-                                        IOError::Missing(format!("{:?} data missing",IO::<T>::$variant{data: None}))
+                                        IOError::Missing(IO::<T>::$variant{data: None})
                     )),+
                 }
             }
@@ -207,6 +210,12 @@ build_io!(
     M1actuatorsSegment5,
     M1actuatorsSegment6,
     M1ActuatorsSegment7,
+    // M1 fans
+    OSSM1FansLcl6F,
+    OSSM1FansLcl6D,
+    // Payloads
+    OSSPayloads6F,
+    OSSPayloads6D,
     // Mount Drives
     OSSAzDriveF,  // azimuth drive
     OSSElDriveF,  // elevation drive
@@ -240,6 +249,8 @@ build_io!(
     MCM2CP6D,  // Cold plates
     MCM2RB6D,  // Reference bodies
     MCM2Lcl6D, // Face sheets
+    MCASMCOG6F,
+    MCASMCOG6D,
     //
     MCM2TE6F,
     MCM2TEIF6F,
