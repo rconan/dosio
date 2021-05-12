@@ -8,22 +8,24 @@ pub enum DOSIOSError {
     Step(BoxError),
 }
 impl std::fmt::Display for DOSIOSError {
-		fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Inputs(_) => write!(f,"An error occured with the Inputs method from DOS trait"),
-            Self::Outputs(_) => write!(f,"An error occured with the Outputs method from DOS trait"),
-            Self::Step(_) => write!(f,"An error occured with the Step method from DOS trait"),
+            Self::Inputs(_) => write!(f, "An error occured with the Inputs method from DOS trait"),
+            Self::Outputs(_) => {
+                write!(f, "An error occured with the Outputs method from DOS trait")
+            }
+            Self::Step(_) => write!(f, "An error occured with the Step method from DOS trait"),
         }?;
-			  if let Some(error) = self.source() {
-				    write!(f, "\nCaused by: {}", error)?;
-			  }
-			  Ok(())
-		}
+        if let Some(error) = self.source() {
+            write!(f, "\nCaused by: {}", error)?;
+        }
+        Ok(())
+    }
 }
 impl std::fmt::Debug for DOSIOSError {
-		fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-			  <DOSIOSError as std::fmt::Display>::fmt(self, f)
-		}
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        <DOSIOSError as std::fmt::Display>::fmt(self, f)
+    }
 }
 impl Error for DOSIOSError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
