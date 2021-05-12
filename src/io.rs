@@ -2,10 +2,9 @@
 //!
 //! Provides the definitions for all the inputs and outputs used by DOS
 
-
 use core::fmt::Debug;
-use std::fmt;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 use std::ops::{AddAssign, Index, IndexMut, SubAssign};
 
 #[derive(Debug)]
@@ -15,7 +14,7 @@ pub enum IOError<T> {
 impl<T: Debug> fmt::Display for IOError<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Missing(v) => write!(f,"{:?} is missing",v),
+            Self::Missing(v) => write!(f, "{:?} is missing", v),
         }
     }
 }
@@ -310,5 +309,8 @@ build_io!(
     // M1 control
     M1HPCmd,
     M1HPLC,
-    M1CGFM
+    M1CGFM,
+    SensorData,
+    SrcWfeRms,
+    Pssn
 );
