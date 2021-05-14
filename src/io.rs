@@ -146,11 +146,25 @@ macro_rules! build_io {
             $(pub struct $variant {}
               impl $variant {
                   /// Creates a new `IO` type variant with `data` set to `None`
+		  #[deprecated(
+		      note = "Please use the io function instead"
+		  )]
                   pub fn new<T>() -> IO<T> {
                       IO::$variant{ data: None}
                   }
+                  /// Creates a new `IO` type variant with `data` set to `None`
+                  pub fn io<T>() -> IO<T> {
+                      IO::$variant{ data: None}
+                  }
                   /// Creates a new `IO` type variant filled with `data`
+		  #[deprecated(
+		      note = "Please use the io_with function instead"
+		  )]
                   pub fn with<T>(data: T) -> IO<T> {
+                      IO::$variant{ data: Some(data)}
+                  }
+                  /// Creates a new `IO` type variant filled with `data`
+                  pub fn io_with<T>(data: T) -> IO<T> {
                       IO::$variant{ data: Some(data)}
                   }
               }
