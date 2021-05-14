@@ -3,13 +3,17 @@ pub mod io;
 pub use error::DOSIOSError;
 pub use io::IO;
 
-pub type DosIoData = Option<Vec<IO<Vec<f64>>>>;
 /// Used to glue together the different components of an end-to-end model
 pub trait Dos {
+    type Input;
+    type Output;
+
     /// Computes and returns a vector outputs from a model component
-    fn outputs(&mut self) -> DosIoData;
+    fn outputs(&mut self) -> Option<Vec<IO<Self::Output>>>;
+
     /// Passes a vector of input data to a model component
-    fn inputs(&mut self, data: DosIoData) -> Result<&mut Self, DOSIOSError>;
+    fn inputs(&mut self, data: Option<Vec<IO<Self::Input>>>) -> Result<&mut Self, DOSIOSError>;
+
     /// Updates the state of a model component for one time step
     fn step(&mut self) -> Result<&mut Self, DOSIOSError>
     where
@@ -20,10 +24,14 @@ pub trait Dos {
             .ok_or_else(|| "DOS next step has issued None".into())
             .map_err(DOSIOSError::Step)
     }
+
     /// Combines `inputs`, `step` and `outputs` in a single method
     ///
     /// This is equivalent to `.inputs(...)?.step()?.outputs()?`
-    fn in_step_out(&mut self, data: DosIoData) -> Result<DosIoData, DOSIOSError>
+    fn in_step_out(
+        &mut self,
+        data: Option<Vec<IO<Self::Input>>>,
+    ) -> Result<Option<Vec<IO<Self::Output>>>, DOSIOSError>
     where
         Self: Sized + Iterator,
     {
