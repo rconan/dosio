@@ -3,8 +3,11 @@ use std::error::Error;
 pub type BoxError = Box<dyn Error>;
 /// DOS trait methods error
 pub enum DOSIOSError {
+    /// [`inputs`](crate::Dos::inputs) error type
     Inputs(BoxError),
+    /// [`outputs`](crate::Dos::outputs) error type
     Outputs(BoxError),
+    /// [`step`](crate::Dos::step) error type
     Step(BoxError),
 }
 impl std::fmt::Display for DOSIOSError {

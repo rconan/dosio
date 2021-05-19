@@ -5,8 +5,9 @@
 use core::fmt::Debug;
 use serde::{Deserialize, Serialize};
 use std::fmt;
-use std::ops::{AddAssign, Index, IndexMut, SubAssign};
+use std::ops::{AddAssign, Deref, DerefMut, Index, IndexMut, SubAssign};
 
+/// IO Error type
 #[derive(Debug)]
 pub enum IOError<T> {
     Missing(IO<T>),
@@ -35,6 +36,21 @@ macro_rules! build_io {
                 }
             }
         }
+	impl<T> Deref for IO<T> {
+	    type Target = Option<T>;
+	    fn deref(&self) -> &Self::Target {
+                match self {
+                    $(IO::$variant{ data: values} => values),+
+                }
+	    }
+	}
+	impl<T> DerefMut for IO<T> {
+	    fn deref_mut(&mut self) -> &mut Self::Target {
+                match self {
+                    $(IO::$variant{ data: values} => values),+
+                }
+	    }
+	}
         impl<T,U> PartialEq<IO<T>> for IO<U> {
             fn eq(&self, other: &IO<T>) -> bool {
                 match (self,other) {

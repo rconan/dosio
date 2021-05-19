@@ -1,20 +1,30 @@
+//! Interface for the GMT Dynamic Optics Simulation
+//!
+//! All components of GMT Dynamic Optics Simulations must implement the [`inputs`](Dos::inputs) and [`outputs`](Dos::outputs) method of the [`Dos`] trait.
+//! All inputs and outputs must be a variant of the enum type [`IO`].
+
 pub mod error;
 pub mod io;
+
+#[doc(inline)]
 pub use error::DOSIOSError;
+#[doc(inline)]
 pub use io::IO;
 
-/// Used to glue together the different components of an end-to-end model
+/// Dynamic Optics Simulation interface
 pub trait Dos {
+    /// `Self` inputs type
     type Input;
+    /// `Self` outputs type
     type Output;
 
-    /// Computes and returns a vector outputs from a model component
+    /// Returns a [`IO`] output vector from `Self`
     fn outputs(&mut self) -> Option<Vec<IO<Self::Output>>>;
 
-    /// Passes a vector of input data to a model component
+    /// Passe a [`IO`] input vector to `Self`
     fn inputs(&mut self, data: Option<Vec<IO<Self::Input>>>) -> Result<&mut Self, DOSIOSError>;
 
-    /// Updates the state of a model component for one time step
+    /// Invokes the `next` method of `Self`
     fn step(&mut self) -> Result<&mut Self, DOSIOSError>
     where
         Self: Sized + Iterator,
