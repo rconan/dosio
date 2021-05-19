@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["dosio"] = [{"text":"impl&lt;T&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/index/trait.IndexMut.html\" title=\"trait core::ops::index::IndexMut\">IndexMut</a>&lt;<a class=\"enum\" href=\"dosio/enum.IO.html\" title=\"enum dosio::IO\">IO</a>&lt;T&gt;&gt; for <a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"enum\" href=\"dosio/enum.IO.html\" title=\"enum dosio::IO\">IO</a>&lt;T&gt;&gt;","synthetic":false,"types":["alloc::vec::Vec"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

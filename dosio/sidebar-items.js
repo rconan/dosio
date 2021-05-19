@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DOSIOSError","DOS trait methods error"],["IO","Inputs/Outputs definition"]],"mod":[["error",""],["io","DOS inputs/outputs"]],"trait":[["Dos","Dynamic Optics Simulation interface"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IO","Inputs/Outputs definition"],["IOError","IO Error type"]],"mod":[["jar","A DOS Inputs/Outputs builder"]],"type":[["Tags","A type for empty `IO`"]]});
