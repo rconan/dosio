@@ -11,6 +11,14 @@ pub use error::DOSIOSError;
 #[doc(inline)]
 pub use io::IO;
 
+/// Used to get the list of inputs or outputs
+pub trait IOTags {
+    /// Return the list of outputs
+    fn outputs_tags(&self) -> Vec<IO<()>>;
+    /// Return the list of inputs
+    fn inputs_tags(&self) -> Vec<IO<()>>;
+}
+
 /// Dynamic Optics Simulation interface
 pub trait Dos {
     /// `Self` inputs type
