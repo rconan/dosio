@@ -188,13 +188,28 @@ macro_rules! build_io {
         }
     };
 }
-impl<T> Index<IO<T>> for Vec<IO<T>> {
+/*impl<T> Index<IO<T>> for Vec<IO<T>> {
     type Output = IO<T>;
     fn index(&self, io: IO<T>) -> &Self::Output {
         self.iter()
             .position(|x| *x == io)
             .map(|i| &self[i])
             .unwrap()
+    }
+}*/
+impl<T, U> Index<IO<U>> for Vec<IO<T>> {
+    type Output = IO<T>;
+    fn index(&self, io: IO<U>) -> &Self::Output {
+        self.iter()
+            .position(|x| *x == io)
+            .map(|i| &self[i])
+            .unwrap()
+    }
+}
+impl<T, U> Index<&IO<U>> for Vec<IO<T>> {
+    type Output = IO<T>;
+    fn index(&self, io: &IO<U>) -> &Self::Output {
+        self.iter().position(|x| x == io).map(|i| &self[i]).unwrap()
     }
 }
 impl<T> IndexMut<IO<T>> for Vec<IO<T>> {
