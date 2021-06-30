@@ -287,12 +287,14 @@ build_io!(
     MCM2SmHexF,
     // ASM Proof Mass Actuators
     MCM2PMA1F,
+    MCM2PMA1D,
     // ASM
     MCM2CP6F,  // Cold plates
     MCM2RB6F,  // Reference bodies
     MCM2CP6D,  // Cold plates
     MCM2RB6D,  // Reference bodies
     MCM2Lcl6D, // Face sheets
+    MCM2Lcl,   // Face sheets
     MCASMCOG6F,
     MCASMCOG6D,
     //
@@ -357,5 +359,35 @@ build_io!(
     M1CGFM,
     SensorData,
     SrcWfeRms,
-    Pssn
+    Pssn,
+    // Modal ASM outputs
+    M2S1FSRBModalD,
+    M2S2FSRBModalD,
+    M2S3FSRBModalD,
+    M2S4FSRBModalD,
+    M2S5FSRBModalD,
+    M2S6FSRBModalD,
+    M2S7FSRBModalD,
+    M2S1FSModalD,
+    M2S2FSModalD,
+    M2S3FSModalD,
+    M2S4FSModalD,
+    M2S5FSModalD,
+    M2S6FSModalD,
+    M2S7FSModalD,
+    // Modal ASM inputs
+    M2S1FSCPModalF,
+    M2S2FSCPModalF,
+    M2S3FSCPModalF,
+    M2S4FSCPModalF,
+    M2S5FSCPModalF,
+    M2S6FSCPModalF,
+    M2S7FSCPModalF,
+    M2S1FSRBModalF,
+    M2S2FSRBModalF,
+    M2S3FSRBModalF,
+    M2S4FSRBModalF,
+    M2S5FSRBModalF,
+    M2S6FSRBModalF,
+    M2S7FSRBModalF
 );
