@@ -71,10 +71,7 @@ macro_rules! build_io {
             /// Converts a `IO<T>` into an `Option<T>`
             fn from(io: &mut IO<U>) -> Self {
                 match io {
-                    $(IO::$variant{ data: Some(data)} => match data.next() {
-                        Some(data) => Some(IO::$variant{ data: Some(data)}),
-                        None => None
-                    },)+
+                    $(IO::$variant{ data: Some(data)} => data.next().map(|data| IO::$variant{ data: Some(data)}),)+
                         $(IO::$variant{ data: None} => None,)+
                 }
             }
@@ -156,6 +153,13 @@ macro_rules! build_io {
                 }
             }
         }
+	impl fmt::Display for IO<()> {
+	    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                match self {
+                    $(IO::$variant{ ..} => write!(f,"$variant")),+
+                }
+	    }
+	}
         pub mod jar {
             //! A DOS Inputs/Outputs builder
             use super::IO;
@@ -372,7 +376,7 @@ build_io!(
     M1EdgeSensors,
     MCM2CP1D,
     MCM2SmHexD,
-    M2edgesensors,
+    M2Edgesensors,
     MCM2TEIF6D,
     MCM2TE6D,
     M2ReferenceBody1AxialD,
