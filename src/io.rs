@@ -156,7 +156,7 @@ macro_rules! build_io {
 	impl fmt::Display for IO<()> {
 	    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 match self {
-                    $(IO::$variant{ ..} => write!(f,"$variant")),+
+                    $(IO::$variant{ ..} => write!(f,"{}",stringify!($variant))),+
                 }
 	    }
 	}
