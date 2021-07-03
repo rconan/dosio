@@ -5,7 +5,7 @@
 use core::fmt::Debug;
 use serde::{Deserialize, Serialize};
 use std::fmt;
-use std::ops::{AddAssign, Deref, DerefMut, Index, IndexMut, SubAssign};
+use std::ops::{AddAssign, Deref, DerefMut, Index, IndexMut, Mul, SubAssign};
 
 /// IO Error type
 #[derive(Debug)]
@@ -153,6 +153,15 @@ macro_rules! build_io {
                 }
             }
         }
+	impl Mul<f64> for &mut IO<Vec<f64>> {
+	    type Output = ();
+	    fn mul(self, rhs: f64) -> Self::Output {
+                match self {
+                    $(IO::$variant{ data: Some(values)} => {values.iter_mut().for_each(|v| {*v*=rhs;})}),+
+                        _ => println!("Failed scaling IO")
+                };
+	    }
+	}
 	impl fmt::Display for IO<()> {
 	    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 match self {
