@@ -5,7 +5,7 @@
 use core::fmt::Debug;
 use serde::{Deserialize, Serialize};
 use std::fmt;
-use std::ops::{AddAssign, Deref, DerefMut, Index, IndexMut, Mul, SubAssign};
+use std::ops::{AddAssign, Deref, DerefMut, Index, IndexMut, Mul, MulAssign, SubAssign};
 
 /// IO Error type
 #[derive(Debug)]
@@ -148,6 +148,17 @@ macro_rules! build_io {
                             let z: Vec<_> = x.iter().zip(y).map(|(x,y)| x-y).collect();
                             *self = IO::$variant{ data: Some(z)};
                         });
+                    }),+
+                        _ => println!("Failed substracting IO")
+                }
+            }
+        }
+        impl MulAssign<f64> for IO<Vec<f64>> {
+            fn mul_assign(&mut self, rhs: f64) {
+                match self.clone() {
+                    $(IO::$variant{ data: Some(x)} => {
+			let z: Vec<_> = x.iter().map(|x| x*rhs).collect();
+                        *self = IO::$variant{ data: Some(z)};
                     }),+
                         _ => println!("Failed substracting IO")
                 }
