@@ -423,5 +423,10 @@ build_io!(
     M2S4FSRBModalF,
     M2S5FSRBModalF,
     M2S6FSRBModalF,
-    M2S7FSRBModalF
+    M2S7FSRBModalF,
+    // ASM control
+    ASMCmd,
+    ASMFB,
+    ASMModalF,
+    MagModalVel
 );
