@@ -236,8 +236,8 @@ impl<T, U> Index<&IO<U>> for Vec<IO<T>> {
         self.iter().position(|x| x == io).map(|i| &self[i]).unwrap()
     }
 }
-impl<T> IndexMut<IO<T>> for Vec<IO<T>> {
-    fn index_mut(&mut self, io: IO<T>) -> &mut Self::Output {
+impl<T, U> IndexMut<IO<U>> for Vec<IO<T>> {
+    fn index_mut(&mut self, io: IO<U>) -> &mut Self::Output {
         self.iter()
             .position(|x| *x == io)
             .map(move |i| &mut self[i])
