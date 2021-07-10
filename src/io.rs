@@ -446,6 +446,13 @@ build_io!(
     M2S7FSRBModalF,
     // ASM control
     ASMCmd,
+    M2S1Cmd,
+    M2S2Cmd,
+    M2S3Cmd,
+    M2S4Cmd,
+    M2S5Cmd,
+    M2S6Cmd,
+    M2S7Cmd,
     ASMFB,
     ASMModalF,
     MagModalVel

@@ -11,6 +11,33 @@ pub use error::DOSIOSError;
 #[doc(inline)]
 pub use io::IO;
 
+///  Create IO enum
+///
+/// Return a single IO enum or a vector of IO enums, either empty or with values
+/// ios!(variant)
+/// ios!(variant(value))
+/// ios!(variant1, variant2, ...)
+/// ios!(variant1(value1), variant2(value2), ...)
+#[macro_export]
+macro_rules! ios {
+    // ios!(variant)
+    ($name:ident) => {
+        $crate::io::jar::$name::io::<()>()
+    };
+    // ios!(variant(value))
+    ($name:ident($value:expr)) => {
+        $crate::io::jar::$name::io_with($value)
+    };
+    // ios!(variant1, variant2, ...)
+   ($($name:ident),+) => {
+        vec![$($crate::io::jar::$name::io::<()>()),+]
+    };
+    // ios!(variant1(value1), variant2(value2), ...)
+    ($($name:ident($value:expr)),+) => {
+        vec![$($crate::io::jar::$name::io_with($value)),+]
+    };
+}
+
 /// Used to get the list of inputs or outputs
 pub trait IOTags {
     /// Return the list of outputs
