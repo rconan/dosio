@@ -396,7 +396,7 @@ build_io!(
     M1EdgeSensors,
     MCM2CP1D,
     MCM2SmHexD,
-    M2Edgesensors,
+    M2edgesensors,
     MCM2TEIF6D,
     MCM2TE6D,
     M2ReferenceBody1AxialD,
