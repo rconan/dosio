@@ -38,6 +38,24 @@ macro_rules! ios {
     };
 }
 
+pub trait IOVec {
+    fn pop_this(io: &mut Vec<IO<Vec<f64>>>, val: IO<()>) -> Option<IO<Vec<f64>>> {
+        io.iter()
+            .position(|io| *io == val)
+            .map(|idx| io.remove(idx))
+    }
+    fn pop_these(io: &mut Vec<IO<Vec<f64>>>, vals: Vec<IO<()>>) -> Option<Vec<IO<Vec<f64>>>> {
+        vals.into_iter()
+            .map(|val| {
+                io.iter()
+                    .position(|io| *io == val)
+                    .map(|idx| io.remove(idx))
+            })
+            .collect()
+    }
+}
+impl IOVec for Vec<IO<Vec<f64>>> {}
+
 /// Used to get the list of inputs or outputs
 pub trait IOTags {
     /// Return the list of outputs
