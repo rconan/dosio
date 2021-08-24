@@ -60,6 +60,9 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "M1HPLC",
             "OSSHardpointD",
             "M1HPCmd",
+            // - hardpoints dynamics
+            "HPFcmd",
+            "M1RBMcmd",
             // - CG
             "M1CGFM",
             "M1HPLC",
