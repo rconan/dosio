@@ -100,6 +100,10 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "M2poscmd",
             "M2posFB",
             "M2posactF",
+            //  - piezostack
+            "TTcmd",
+            "PZTFB",
+            "PZTF",
             // CEO
             "SrcWfeRms",
             "Pssn",
