@@ -95,6 +95,11 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "M1S7BMcmd",
             "M1S7ACTF",
             "M1ActuatorsSegment7",
+            // fsm controller
+            //  - positionner
+            "M2poscmd",
+            "M2posFB",
+            "M2posactF",
             // CEO
             "SrcWfeRms",
             "Pssn",
