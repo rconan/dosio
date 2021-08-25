@@ -104,6 +104,10 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "TTcmd",
             "PZTFB",
             "PZTF",
+            //  - tiptilt
+            "TTSP",
+            "TTFB",
+            "TTcmd",
             // CEO
             "SrcWfeRms",
             "Pssn",
