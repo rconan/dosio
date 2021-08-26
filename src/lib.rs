@@ -58,7 +58,7 @@ pub trait IOVec {
 impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
     type Output = T;
 }
-pub type DosVec<T> = <Vec<T> as crate::IOVec>::Output;
+pub type DosVec<T> = Vec<<Vec<T> as crate::IOVec>::Output>;
 
 /// Used to get the list of inputs or outputs
 pub trait IOTags {
