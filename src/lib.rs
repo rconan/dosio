@@ -39,12 +39,13 @@ macro_rules! ios {
 }
 
 pub trait IOVec {
-    fn pop_this(io: &mut Vec<IO<Vec<f64>>>, val: IO<()>) -> Option<IO<Vec<f64>>> {
+    type Output: std::cmp::PartialEq<IO<()>>;
+    fn pop_this(io: &mut Vec<Self::Output>, val: IO<()>) -> Option<Self::Output> {
         io.iter()
             .position(|io| *io == val)
             .map(|idx| io.remove(idx))
     }
-    fn pop_these(io: &mut Vec<IO<Vec<f64>>>, vals: Vec<IO<()>>) -> Option<Vec<IO<Vec<f64>>>> {
+    fn pop_these(io: &mut Vec<Self::Output>, vals: Vec<IO<()>>) -> Option<Vec<Self::Output>> {
         vals.into_iter()
             .map(|val| {
                 io.iter()
@@ -54,7 +55,10 @@ pub trait IOVec {
             .collect()
     }
 }
-impl IOVec for Vec<IO<Vec<f64>>> {}
+impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
+    type Output = T;
+}
+pub type DosVec<T> = <Vec<T> as crate::IOVec>::Output;
 
 /// Used to get the list of inputs or outputs
 pub trait IOTags {
