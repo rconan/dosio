@@ -40,6 +40,11 @@ macro_rules! ios {
 
 pub trait IOVec {
     type Output: std::cmp::PartialEq<IO<()>>;
+    fn pop_this(io: &mut Vec<Self::Output>, val: IO<()>) -> Option<Self::Output>;
+    fn pop_these(io: &mut Vec<Self::Output>, vals: Vec<IO<()>>) -> Option<Vec<Self::Output>>;
+}
+impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
+    type Output = T;
     fn pop_this(io: &mut Vec<Self::Output>, val: IO<()>) -> Option<Self::Output> {
         io.iter()
             .position(|io| *io == val)
@@ -54,9 +59,6 @@ pub trait IOVec {
             })
             .collect()
     }
-}
-impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
-    type Output = T;
 }
 pub type DosVec<T> = Vec<<Vec<T> as crate::IOVec>::Output>;
 
