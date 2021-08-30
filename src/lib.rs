@@ -38,14 +38,27 @@ macro_rules! ios {
     };
 }
 
+/// Specialization of [`Vec`] of [`IO`]
 pub trait IOVec {
-    type Output: std::cmp::PartialEq<IO<()>>;
+    type Output: std::cmp::PartialEq<IO<()>>
+        + std::cmp::PartialEq<IO<Vec<f64>>>
+        + std::cmp::PartialEq;
+    /// Removes and returns all the elements of a [`Vec`] that are equal to the elements in `vals`
+    fn pop_these(&mut self, vals: Vec<IO<()>>) -> Option<Vec<Self::Output>>;
+    /// Removes and returns the element of [`Vec`] that is equal to `val`
     fn pop_this(&mut self, val: IO<()>) -> Option<Self::Output> {
         self.pop_these(vec![val]).and_then(|mut x| x.pop())
     }
-    fn pop_these(&mut self, vals: Vec<IO<()>>) -> Option<Vec<Self::Output>>;
+    /// Replaces all the elements of a [`Vec`] that are equal to the elements in `vals` by the corresponding value
+    fn swap_these(&mut self, vals: Vec<Self::Output>);
+    /// Replaces the element of [`Vec`] that is equal to `val` by `val`
+    fn swap_this(&mut self, val: Self::Output) {
+        self.swap_these(vec![val])
+    }
 }
-impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
+impl<T: std::cmp::PartialEq<IO<()>> + std::cmp::PartialEq<IO<Vec<f64>>> + std::cmp::PartialEq> IOVec
+    for Vec<T>
+{
     type Output = T;
     fn pop_these(&mut self, vals: Vec<IO<()>>) -> Option<Vec<Self::Output>> {
         vals.into_iter()
@@ -56,8 +69,14 @@ impl<T: std::cmp::PartialEq<IO<()>>> IOVec for Vec<T> {
             })
             .collect()
     }
+    fn swap_these(&mut self, vals: Vec<T>) {
+        vals.into_iter().for_each(|val| {
+            if let Some(idx) = self.iter().position(|io| *io == val) {
+                self[idx] = val;
+            }
+        });
+    }
 }
-pub type DosVec<T> = Vec<<Vec<T> as crate::IOVec>::Output>;
 
 /// Used to get the list of inputs or outputs
 pub trait IOTags {
