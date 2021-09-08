@@ -47,6 +47,7 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "MCM2Lcl6F",
             "MCM2TE6F",
             "MCM2RB6F",
+            "OSSMirrorCovers6F",
             // mount controller
             "OSSAzDriveTorque",
             "OSSElDriveTorque",
@@ -256,7 +257,7 @@ fn build_io(variant: Vec<Ident>) -> proc_macro2::TokenStream {
             }
         }
         impl<T: Debug> From<IO<T>> for Result<T,IOError<T>> {
-            /// Converts a `IO<T>` into an `Option<T>`
+            /// Converts a `IO<T>` into an `Result<T,IOError<T>>`
             fn from(io: IO<T>) -> Self {
                 match io {
                     #(IO::#variant{ data: values} =>
