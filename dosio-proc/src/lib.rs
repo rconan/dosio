@@ -113,6 +113,7 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "SrcWfeRms",
             "Pssn",
             "SensorData",
+            "M1modes",
         ]
         .iter()
         .map(|&v| Ident::new(v, Span::call_site())),
