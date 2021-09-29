@@ -346,6 +346,14 @@ fn build_io(variant: Vec<Ident>) -> proc_macro2::TokenStream {
                 }
         }
     }
+    impl<T> IO<T> {
+        pub fn kind(&self) -> String
+        {
+            match self {
+                    #(IO::#variant{ ..} => stringify!(#variant).to_string()),*
+            }
+        }
+    }
         pub mod jar {
             //! A DOS Inputs/Outputs builder
             use super::IO;
