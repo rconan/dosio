@@ -111,6 +111,9 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "TTcmd",
             // CEO
             "SrcWfeRms",
+            "SrcSegmentWfeRms",
+            "SrcSegmentPiston",
+            "SrcSegmentGradients",
             "Pssn",
             "SensorData",
             "M1modes",
