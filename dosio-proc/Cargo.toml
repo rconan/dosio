@@ -2,6 +2,13 @@
 name = "dosio-proc"
 version = "0.1.0"
 edition = "2018"
+license = "MIT"
+description = "A procedural macro to build the Giant Magellan Telescope dynamic optical simulations inputs/output"
+repository = "https://github.com/rconan/dosio/dosio-proc"
+documentation = "https://docs.rs/dosio-proc"
+readme = "README.md"
+categories = ["science, simulation"]
+keywords = ["telescope", "astronomy"]
 
 [lib]
 proc-macro = true
