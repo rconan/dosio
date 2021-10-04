@@ -111,8 +111,12 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             "TTcmd",
             // CEO
             "SrcWfeRms",
+            "SrcSegmentWfeRms",
+            "SrcSegmentPiston",
+            "SrcSegmentGradients",
             "Pssn",
             "SensorData",
+            "M1modes",
         ]
         .iter()
         .map(|&v| Ident::new(v, Span::call_site())),
@@ -335,6 +339,14 @@ fn build_io(variant: Vec<Ident>) -> proc_macro2::TokenStream {
                 match self {
                     #(IO::#variant{ ..} => write!(f,"{}",stringify!(#variant))),*
                 }
+        }
+    }
+    impl<T> IO<T> {
+        pub fn kind(&self) -> String
+        {
+            match self {
+                    #(IO::#variant{ ..} => stringify!(#variant).to_string()),*
+            }
         }
     }
         pub mod jar {
