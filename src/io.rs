@@ -53,3 +53,14 @@ impl<T, U: Debug> std::ops::IndexMut<IO<U>> for Vec<IO<T>> {
 
 /// A type for empty `IO`
 pub type Tags = IO<()>;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn from_tag_and_data() {
+        let tag = IO::SensorData { data: Some(()) };
+        let data = vec![1.234; 5];
+        let io: IO<Vec<f64>> = From::from((&tag, Some(data)));
+    }
+}
