@@ -16,4 +16,4 @@ proc-macro = true
 [dependencies]
 proc-macro2 = "^1.0"
 quote = "^1.0"
-hdf5 = { git = "https://github.com/aldanor/hdf5-rust.git" , branch= "master" }
+hdf5 = { version = "^0.7", git = "https://github.com/aldanor/hdf5-rust.git" , branch= "master" }
