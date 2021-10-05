@@ -8,8 +8,11 @@ description = "Giant Magellan Telescope dynamic optical simulations inputs/outpu
 repository = "https://github.com/rconan/dosio"
 documentation = "https://docs.rs/dosio"
 readme = "README.md"
-categories = ["science, simulation"]
+categories = ["science", "simulation"]
 keywords = ["telescope", "astronomy"]
+
+[workspace]
+members = ["dosio-proc"]
 
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }
