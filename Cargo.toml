@@ -10,11 +10,6 @@ members = ["dosio-proc"]
 [dependencies]
 serde = { version = "1.0.124", features = ["derive"] }
 dosio-proc = { path = "dosio-proc" }
-crseo = { path = "../crseo", optional = true }
-cfd = { path = "../cfd", optional = true }
-
-[features]
-ceo = ["crseo", "cfd"]
 
 [dev-dependencies]
 serde-pickle = "0.6.2"

@@ -3,8 +3,6 @@
 //! All components of GMT Dynamic Optics Simulations must implement the [`inputs`](Dos::inputs) and [`outputs`](Dos::outputs) method of the [`Dos`] trait.
 //! All inputs and outputs must be a variant of the enum type [`IO`].
 
-#[cfg(feature = "ceo")]
-pub mod ceo;
 pub mod error;
 pub mod io;
 
