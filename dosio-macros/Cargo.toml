@@ -1,7 +1,7 @@
 [package]
 name = "dosio-macros"
 
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 license = "MIT"
 description = "A procedural macro to build the Giant Magellan Telescope dynamic optical simulations inputs/output"
