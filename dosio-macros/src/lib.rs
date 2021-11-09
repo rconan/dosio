@@ -288,6 +288,14 @@ fn build_io(variant: Vec<Ident>) -> proc_macro2::TokenStream {
                 }
             }
         }
+        impl From<(&IO<()>,Vec<f64>)> for IO<Vec<f64>> {
+            /// Converts a `(&IO<()>,Vec<f64>)` into an `IO<Vec<f64>>`
+            fn from((io,v): (&IO<()>,Vec<f64>)) -> Self {
+                match io {
+                    #(IO::#variant{ data: _} => IO::#variant{ data: Some(v)}),*
+                }
+            }
+        }
         impl std::ops::AddAssign<&IO<Vec<f64>>> for IO<Vec<f64>> {
             fn add_assign(&mut self, other: &IO<Vec<f64>>) {
                 match self.clone() {
