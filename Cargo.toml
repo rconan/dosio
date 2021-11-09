@@ -11,12 +11,9 @@ readme = "README.md"
 categories = ["science", "simulation"]
 keywords = ["telescope", "astronomy"]
 
-[workspace]
-members = ["dosio-proc"]
-
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }
-dosio-proc = { path = "dosio-proc", version = "^0.1"}
+dosio-macros = { path = "dosio-macros", version = "^0.1"}
 
 [dev-dependencies]
 serde-pickle = "0.6.2"

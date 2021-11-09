@@ -20,7 +20,7 @@ impl<T: Debug> fmt::Display for IOError<T> {
 }
 impl<T: Debug> std::error::Error for IOError<T> {}
 
-dosio_proc::ad_hoc! {}
+dosio_macros::ad_hoc! {}
 impl<T, U: Debug> std::ops::Index<IO<U>> for Vec<IO<T>> {
     type Output = IO<T>;
     fn index(&self, io: IO<U>) -> &Self::Output {
