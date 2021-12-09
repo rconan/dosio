@@ -12,7 +12,7 @@ use std::path::Path;
 /// Ad-hoc `dosio` crate builder
 #[proc_macro]
 pub fn ad_hoc(_item: TokenStream) -> TokenStream {
-    let mut variants = if let Ok(fem_repo) = env::var("FEM_REPO") {
+    let mut variants: Vec<Ident> = if let Ok(fem_repo) = env::var("FEM_REPO") {
         // Gets the FEM repository
         println!(
             "Building `dosio::IO` enum to match inputs/outputs of FEM in {}",
@@ -32,7 +32,20 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             .flatten()
             .collect()
     } else {
-        Vec::<Ident>::new()
+        println!("`FEM_REPO` environment variable is not set, using dummies instead.");
+        [
+            "Rodolphe",
+            "Rodrigo",
+            "Christoph",
+            "Henry",
+            "Conan",
+            "Romano",
+            "Dribusch",
+            "Fitzpatrick",
+        ]
+        .iter()
+        .map(|&v| Ident::new(v, Span::call_site()))
+        .collect()
     };
 
     variants.extend(
