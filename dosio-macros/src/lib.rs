@@ -266,6 +266,14 @@ fn build_io(variant: Vec<Ident>) -> proc_macro2::TokenStream {
                 }
             }
         }
+        impl<'a, T> From<&'a IO<T>> for Option<&'a T> {
+            /// Converts a `&IO<T>` into an `Option<&T>`
+            fn from(io: &'a IO<T>) -> Self {
+                match io {
+                    #(IO::#variant{ data: values} => values.as_ref()),*
+                }
+            }
+        }
         impl<T> From<(&IO<()>,Option<T>)> for IO<T> {
             fn from((io,data): (&IO<()>,Option<T>)) -> Self {
                 match io {
