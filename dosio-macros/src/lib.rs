@@ -73,6 +73,7 @@ pub fn ad_hoc(_item: TokenStream) -> TokenStream {
             //  - hardpoints load cells
             "M1HPLC",
             "OSSHardpointD",
+            "OSSHarpointDeltaF",
             "M1HPCmd",
             // - hardpoints dynamics
             "HPFcmd",
