@@ -26,3 +26,5 @@ zip = { version = "0.5.13", optional = true }
 [features]
 prqt = ["arrow", "parquet", "thiserror", "zip"]
 
+[package.metadata.docs.rs]
+features = ["prqt"]
