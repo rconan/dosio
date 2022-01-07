@@ -1,6 +1,6 @@
 [package]
 name = "dosio"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Rod Conan <rconan@gmto.org>"]
 edition = "2018"
 license = "MIT"
@@ -17,3 +17,11 @@ dosio-macros = { path = "dosio-macros", version = "^0.1"}
 
 [dev-dependencies]
 serde-pickle = "0.6.2"
+
+[features]
+default = ["dosio-macros/hdf5"]
+prqt = ["dosio-macros/prqt"]
+
+[package.metadata.docs.rs]
+no-default-features = true
+features = ["prqt"]
